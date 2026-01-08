@@ -2,14 +2,14 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-
+console.log("API_URL", API_URL);
 // Create axios instance with default config
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 10000, // 10 seconds
+  timeout: 50000, // 10 seconds
 });
 
 // Request interceptor
