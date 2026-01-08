@@ -1,7 +1,10 @@
+import { connect } from "mongoose";
 import Contact from "../models/contact.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import connectDB from "../config/database.js";
 
 export const createContact = asyncHandler(async (req, res) => {
+  awaitconnectDB();
   const { name, email, phone, message } = req.body;
 
   const contact = await Contact.create({
@@ -19,6 +22,7 @@ export const createContact = asyncHandler(async (req, res) => {
 });
 
 export const getContacts = asyncHandler(async (req, res) => {
+  await connectDB();
   const { sort = "-createdAt", limit = 100, page = 1 } = req.query;
 
   const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -41,6 +45,7 @@ export const getContacts = asyncHandler(async (req, res) => {
 });
 
 export const getContact = asyncHandler(async (req, res) => {
+  awaitconnectDB();
   const contact = await Contact.findById(req.params.id);
 
   if (!contact) {
